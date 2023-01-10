@@ -44,7 +44,7 @@ const Notification=()=>{
   
     return (
       <View style={styles.container}>
-        <Text>Firebase Cloud Messaging Tutorial</Text>
+        <Text style={styles.textStyle}>Firebase Cloud Messaging Tutorial</Text>
       </View>
     );
 
@@ -60,4 +60,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    textStyle: {
+      fontSize: 20,
+    }
   });
