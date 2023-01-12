@@ -11,7 +11,7 @@ const ChatCard = () => {
         subtitle="Card Subtitle"
         left={(props) => <Avatar.Icon {...props} icon="account" />}
         right={(props) => (
-          <IconButton {...props} icon="more-vert" onPress={() => {}} />
+          <IconButton {...props} icon="check-all" onPress={() => {}} />
         )}
       />
     </View>
