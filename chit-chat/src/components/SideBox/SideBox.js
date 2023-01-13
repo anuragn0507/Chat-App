@@ -1,50 +1,84 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from "react";
+import { View, ScrollView, Text, Alert, Modal, StyleSheet, Pressable, TouchableOpacity  } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 const SideBox = () => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <>
-        
+
       <View style={styles.myScreen}>
         <ScrollView>
-          <Text style={styles.testingtext}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quis culpa aspernatur provident tempora sapiente, totam aliquam aut nam fugit! Velit quidem alias laudantium corrupti! Accusantium, nostrum omnis. Cum minus debitis fuga deleniti voluptatum necessitatibus reiciendis voluptas dolorem pariatur autem recusandae consequuntur, doloremque natus ullam minima enim quae ipsum labore tempore sed neque. Fuga, non debitis, possimus nihil, eum tempore incidunt minus soluta provident alias nemo assumenda saepe quo. Consequatur eius, eos blanditiis laudantium adipisci rerum tempore, ullam repellendus ipsa obcaecati mollitia nihil commodi? Sequi iure, porro repellat molestiae, velit ullam architecto, quam aspernatur quasi possimus cum vero? Itaque necessitatibus ipsa rem quidem enim consequuntur natus fugiat ea alias porro suscipit, quod obcaecati quas iusto deleniti dolor praesentium ut molestias corporis libero animi inventore ab? Animi culpa consectetur quidem delectus sint quisquam perferendis. Officiis, provident. Repudiandae, iusto molestias! Sequi, omnis? Accusantium blanditiis libero quod necessitatibus iste assumenda facilis excepturi praesentium deserunt, totam perferendis corporis, harum distinctio accusamus reprehenderit. Aspernatur voluptatum deserunt sunt id, alias ea similique voluptatem est iste dolorem. Eos, consequuntur obcaecati atque tenetur veniam repudiandae, ea at ex pariatur cupiditate, in explicabo veritatis sint ipsum! Obcaecati nam, qui quasi ducimus magni numquam. Porro, corporis, maiores optio nulla earum vitae aut officiis accusamus sapiente, quisquam at aperiam labore quod blanditiis neque ipsum. Dolore sunt cumque voluptate inventore dolores nobis odit delectus alias similique vero ab laudantium minus voluptas nesciunt voluptates consequuntur ex, necessitatibus ut rerum laborum aperiam distinctio! Est harum, recusandae maxime quos tenetur ea odio fugiat, aliquid autem, rem voluptatem voluptatum similique! Aspernatur error excepturi amet ipsum exercitationem omnis? Repellat provident molestias sequi odio a numquam quos cumque. Dolorum, et dolorem. Libero doloribus fugiat cum quas corrupti pariatur reprehenderit nisi optio suscipit corporis tenetur dolores modi, culpa soluta necessitatibus vero adipisci nobis, dolorum numquam laborum! Debitis ipsa unde porro iste eveniet quia, inventore officia quae nemo id, assumenda ipsam ipsum. Voluptas repudiandae, at fugit nemo alias ab, accusantium saepe magni est cumque asperiores, dolores unde beatae dolorum quibusdam excepturi autem delectus dolor nulla veniam. Ratione cupiditate, sunt ad, eligendi atque at debitis dolorem illo libero eaque voluptas corrupti nostrum ab exercitationem deleniti dolore voluptates optio. Repudiandae numquam iste totam blanditiis aliquid quasi perspiciatis et rem laboriosam suscipit! Minima non, architecto totam corporis aliquid inventore soluta molestiae magnam modi! Illo esse suscipit dolores, reprehenderit voluptatibus quos maxime debitis id magnam ab nam minima placeat, voluptatum perspiciatis veritatis odit inventore mollitia. At officiis quasi ratione, suscipit laborum voluptatum nam necessitatibus doloribus aliquam nesciunt, aperiam obcaecati ipsa commodi ab quos repellendus perspiciatis cum sequi? Voluptas, cum dolorem nulla nobis saepe voluptate id. Quasi doloribus tempora ea quis error minima officiis, alias nobis impedit! Sapiente praesentium deleniti dignissimos ab, corporis ipsa sit molestiae pariatur ratione. Perspiciatis, corporis similique saepe odio, sit officiis pariatur quos iste fugit repudiandae architecto quae in, commodi porro. Est dignissimos vero voluptas quibusdam eum, distinctio facere deleniti provident. Blanditiis, unde, minus dolores consectetur quis nesciunt dignissimos porro expedita obcaecati laborum debitis facere corporis, commodi et. Cum, similique quasi?</Text>
+          <Text style={styles.testingtext}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum culpa veritatis quam sit aperiam ea repudiandae vel molestias consequatur illum nostrum amet, fuga maxime hic iusto! Facilis eos architecto dolorem.
+          Aperiam vero dicta ut, corporis quibusdam consequatur aliquam omnis asperiores culpa tempora quae sequi commodi quo! Quos, quia sequi deleniti rerum qui molestias non odio aperiam placeat nostrum excepturi molestiae?
+          Assumenda recusandae repudiandae officia aliquam, numquam totam nesciunt deserunt cumque sint velit provident dolor porro doloremque laborum! Reprehenderit consequatur illum animi ea minus itaque doloremque dolores. Illum a asperiores ab!
+          Laborum explicabo odit doloremque quia labore expedita, magnam animi autem nemo at ipsam repellendus vel. Sapiente odit id vitae quam dolorem deleniti molestiae cum, commodi architecto atque soluta aut? Corrupti!
+          Nesciunt illo, iste in obcaecati mollitia consequuntur magnam cum odit pariatur esse porro! Provident beatae laborum incidunt debitis eos rem laudantium quaerat mollitia ipsum nihil similique, quos voluptas? Dicta, nemo!
+          A soluta molestias quas cum inventore, aliquam error architecto similique dignissimos tempora eveniet omnis doloribus incidunt porro nesciunt at illo reprehenderit adipisci? Mollitia ducimus facere aliquid, dignissimos veritatis magnam molestiae.
+          Saepe, quidem autem eum quam obcaecati iure, a eos quae quos ipsam deleniti quia vitae est debitis voluptas natus ratione sit possimus, magni ducimus? Provident veritatis vel repellat at repudiandae!
+          Velit laboriosam iure totam nam quaerat ducimus corporis minus dolore consequuntur reiciendis ratione commodi voluptatem rerum quasi excepturi veritatis libero, tenetur nostrum esse autem ipsum aut necessitatibus incidunt quidem. Illo?
+          Ea voluptas distinctio obcaecati, aliquam totam commodi assumenda enim ullam, omnis natus saepe alias necessitatibus consequatur excepturi perferendis, quidem ut! Vero culpa, quaerat omnis numquam molestias in molestiae laborum error.
+          Veritatis perspiciatis, voluptatem unde similique, blanditiis dolor est deleniti quasi numquam dolorem sed eos fugiat aut a neque quam esse quos officia? Quaerat, voluptatem! Quia maiores illo commodi laborum explicabo?</Text>
         </ScrollView>  
       </View>
 
-      <TouchableOpacity style={styles.dotIcon}>
+      <Pressable style={styles.dotIcon} onPress={() => setModalVisible(!modalVisible)} >
         <MaterialCommunityIcons name={'dots-vertical'} size={40} color={'#fff'} />
-      </TouchableOpacity>
+      </Pressable>
 
+      <View >
+        <Modal
+          visible={modalVisible}
+          transparent={true}
+          animationType="fade"
+          onRequestClose={ () => {
+            setModalVisible(false);
+          }}
     
-      <View style={styles.locate}>
+        >
+          <TouchableOpacity
+          style={{ backgroundColor: "rgba(153, 153, 102, 0.1)", flex: 1 }}
+          onPress={() => setModalVisible(false)}
+        >
 
-        <View style={styles.box}>
+       
+          <View style={styles.locate}>
+            <View style={styles.box}>
 
-          <TouchableOpacity>
-            <Text style={styles.text}>New group</Text>
-          </TouchableOpacity>
-            
-          <TouchableOpacity>
-            <Text style={styles.text}>Mark all read</Text>
-          </TouchableOpacity>
-            
-          <TouchableOpacity>
-            <Text style={styles.text}>Invite friends</Text>
-          </TouchableOpacity>
-            
-          <TouchableOpacity>
-            <Text style={styles.text}>Settings</Text>
-          </TouchableOpacity>
-            
-          <TouchableOpacity>
-            <Text style={styles.text}>Notification profile</Text>
-          </TouchableOpacity>
+              <TouchableOpacity onPress={() => Alert.alert("Modal has been closed.")}>
+                <Text style={styles.text}>New group</Text>
+              </TouchableOpacity>
+                
+              <TouchableOpacity onPress={ () => alert("Modal has been closed.")}>
+                <Text style={styles.text}>Mark all read</Text>
+              </TouchableOpacity>
+                
+              <TouchableOpacity>
+                <Text style={styles.text}>Invite friends</Text>
+              </TouchableOpacity>
+                
+              <TouchableOpacity>
+                <Text style={styles.text}>Settings</Text>
+              </TouchableOpacity>
+                
+              <TouchableOpacity>
+                <Text style={styles.text}>Notification profile</Text>
+              </TouchableOpacity>
+
+              <Pressable onPress={() => setModalVisible(false)} >
+                <Text style={styles.text}>close</Text>
+              </Pressable>
+              
+            </View>
+          </View>
           
-        </View>
+          </TouchableOpacity>
 
+        </Modal>
       </View>
-
+      
     </>
   )
 }
@@ -64,33 +98,33 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top:40,
         right:5,
-        // transparent:'true'
     },
     locate:{
         position: 'absolute',
-        top:90,
-        right:25,
-        transparent:'false'
+        top:70,
+        right:15,
     },
     box:{
-        borderWidth:1,
         backgroundColor:'#3c3744',
         padding:15,
-        borderRadius:15,
+        borderRadius:20,
         // height:240,
+        // width:'65%',
+       
     },
     testingtext:{
-      color:'#fff',
+      color:'#ccc',
       fontSize:24,
       padding:14,
       marginVertical:20,
       textAlign:'justify',
       marginTop:100,
 
-  },
+    },
     text:{
         color:'#fff',
         fontSize:24,
         padding:8
-    }
+    },
+    
 })

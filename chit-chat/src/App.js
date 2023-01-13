@@ -7,7 +7,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* <Notification /> */}
-      <StatusBar style="light" hidden={false} backgroundColor='red'  />
+      <StatusBar style="light" hidden={false} backgroundColor='black'  />
       <SideBox />
     </View>
   );
