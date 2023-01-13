@@ -8,48 +8,99 @@ import {
   IconButton,
   MD3Colors,
 } from "react-native-paper";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import auth from "@react-native-firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { currentUser } from "./currentUser";
 
+// Store the phone authentication data in async storage
+export const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem("phoneAuth", jsonValue);
+  } catch (e) {
+    console.log(`Error while storing the data ${value} in async storage`, e);
+  }
+};
 
-const PhoneAuth = () => {
+// for getting the data from the async storage
+
+export const getData = async (key) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(key);
+    // console.log("value store is async storate", jsonValue);r
+    return jsonValue !== null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    console.log(
+      `Error while fetching data from async storage of key ${key} `,
+      e
+    );
+  }
+};
+
+const PhoneAuth = ({ navigation }) => {
   // if null, no sms has sent
-  const [confirm, setConfirm] = useState(null);
+  const [confirm, setConfirm] = useState("");
   const [code, setCode] = useState("");
-  const [phoneNum, setPhoneNum] = useState(0);
+  const [phoneNum, setPhoneNum] = useState("");
   const [phoneError, setPhoneError] = useState(false);
+  const [phoneVerified, setPhoneVerified] = useState(false);
 
   // Handle the button press
   async function signInWithPhoneNumber() {
-    console.log(phoneNum)
-    if (phoneNum.toString.length === 10) {
-      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+    const num = "+91 " + phoneNum;
+    console.log("num is ", num);
+
+    if (num.length === 14) {
+      const confirmation = await auth().signInWithPhoneNumber(num);
+      // console.log("confirmation ", confirmation);
       setConfirm(confirmation);
-    }else{
+    } else {
       Alert.alert("Entered Wrong Number", "Please Enter 10 Digit Number", [
         {
           text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+          style: "cancel",
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "OK", onPress: () => console.log("OK Pressed") },
       ]);
     }
+    setPhoneNum("");
   }
 
   async function confirmCode() {
+    console.log("confirmcode is called");
     try {
       const res = await confirm.confirm(code);
       console.log("you are verified now", res);
+      // currentUser = {...currentUser, ...res};
+      storeData(res);
+      setCode("");
+      setPhoneVerified(true);
+      getLocalData();
     } catch (error) {
       console.log("Invalid code.");
     }
   }
 
-  
+  const getLocalData = async () => {
+    setPhoneVerified(true)
+    const userData = await getData("phoneAuth");
+    console.log("userData", userData);
+    if (userData != null) {
+      navigation.navigate("UserDetails");
+    }
+    setPhoneVerified(true);
+  };
+
+  useEffect(() => {}, [phoneVerified, setPhoneVerified]);
+
+  useEffect(() => {
+    getLocalData();
+  }, []);
 
   return (
-    <View>
+    <View style={styles.container}>
       {!confirm ? (
         <>
           {/* <Button
@@ -61,8 +112,10 @@ const PhoneAuth = () => {
           </Button> */}
 
           <View style={styles.inputContainer}>
-            <Text>Enter your phone number to get started</Text>
-            <Text>
+            <Text style={styles.title}>
+              Enter your phone number to get started
+            </Text>
+            <Text style={styles.desc}>
               You will receive a verification code. Carrier rates may apply
             </Text>
 
@@ -84,7 +137,8 @@ const PhoneAuth = () => {
             <Button
               mode="contained"
               style={styles.signUpButton}
-              onPress={() =>signInWithPhoneNumber()}
+              disabled={phoneNum.length != 10 ? true : false}
+              onPress={() => signInWithPhoneNumber()}
             >
               Next
             </Button>
@@ -97,7 +151,14 @@ const PhoneAuth = () => {
             onChangeText={(text) => setCode(text)}
             style={styles.otp}
           />
-          <Button title="Confirm Code" onPress={() => confirmCode()} />
+
+          <Button
+            mode="contained"
+            style={styles.codeBtn}
+            onPress={() => confirmCode()}
+          >
+            Confirm Code
+          </Button>
         </>
       )}
     </View>
@@ -107,17 +168,34 @@ const PhoneAuth = () => {
 export default PhoneAuth;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center",
+  },
+  title: {
+    fontSize: 24,
+    textAlign: "center",
+    marginTop: 30,
+  },
+  desc: {
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 20,
+    marginBottom: 30,
+  },
   inputContainer: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-
     padding: 30,
   },
   phoneNumInput: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 10,
   },
   countryCode: {
     width: "20%",
@@ -134,6 +212,13 @@ const styles = StyleSheet.create({
   otp: {
     borderWidth: 0.5,
     width: 200,
-    marginBottom: 50,
+    marginBottom: 20,
+    marginTop: 250,
+    alignSelf: "center",
+  },
+  codeBtn: {
+    padding: 5,
+    margin: 40,
+    marginVertical: 10,
   },
 });
