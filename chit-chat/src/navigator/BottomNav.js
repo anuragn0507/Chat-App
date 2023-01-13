@@ -4,8 +4,6 @@ import ChatRoom from "../screens/ChatRoom";
 import HomeChat from "../screens/HomeChat";
 import Stories from "../screens/Stories";
 
-
-
 const BottomNav = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
