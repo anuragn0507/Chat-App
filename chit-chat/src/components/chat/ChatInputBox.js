@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconButton, TextInput } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,17 +12,29 @@ const ChatInputBox = ({props}) => {
   const dispatch = useDispatch();
 
   console.log("params in send message button", props)
+
+  const { user } = useSelector((state) => state.userReducer);
   const {chatMessages, writeMessageStatus, writeMessageError} = useSelector(
     (state) => state.chatMessageReducer,
   );
 
+  useEffect(()=>{
+    console.log("user in chat input box", user);
+  },[])
+
   const sendMessage = () => {
+    console.log("user in chat input box", user);
+    // console.log("Date.now me kya jaa rha hai..................................... ", Date.now());
+    let messageTime;
+    messageTime = Date.now();
+    // console.log("messageTime me kya jaa rha hai..................................... ", messageTime);
+
     dispatch(
       writeMessage({
         text: message,
-        receivedId: props.uid,
-        sentId: user.uid,
-        createdAt: Date.now(),
+        receivedId: props?.uid,
+        sentId: user?.uid,
+        createdAt: messageTime,
         groupId: null,
         likes: [],
       })

@@ -2,15 +2,15 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 import { IconButton } from "react-native-paper";
+import dateString from "../../helpers/dateString";
 
-const RecievedMessage = () => {
+const RecievedMessage = ({item}) => {
   return (
     <View style={styles.container}>
       <View style={styles.messageContainer}>
-        <Text style={styles.message}>Please ignore  </Text>
-        <View style={styles.messageTime}>
-          <Text style={styles.messageTime}>10:42 pm</Text>
-          
+        <Text style={styles.message}>{item.text}</Text>
+        <View>
+          <Text style={styles.messageTime}>{dateString(item.createdAt)}</Text>          
         </View>
       </View>
     </View>
@@ -26,10 +26,7 @@ const styles = StyleSheet.create({
         marginBottom:2.5,
     },
   messageContainer: {
-    // flex:1,
-    // alignSelf:'center',
-    flexWrap:'wrap',
-    // borderWidth:2,
+    
     color: "white",
     backgroundColor: "#3457D5",
     borderRadius: 15,
@@ -51,8 +48,8 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent: 'flex-start',
-    marginVertical:0,
+    marginVertical:2,
     color:'white',
-    fontSize:12,
+    fontSize:11,
   }
 });
