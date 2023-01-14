@@ -43,11 +43,11 @@ const PhoneAuth = ({ navigation }) => {
   const [confirm, setConfirm] = useState("");
   const [code, setCode] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
-  const [phoneError, setPhoneError] = useState(false);
   const [phoneVerified, setPhoneVerified] = useState(false);
 
   // Handle the button press
   async function signInWithPhoneNumber() {
+    setPhoneVerified(true);
     const num = "+91 " + phoneNum;
     console.log("num is ", num);
 
@@ -55,6 +55,9 @@ const PhoneAuth = ({ navigation }) => {
       const confirmation = await auth().signInWithPhoneNumber(num);
       // console.log("confirmation ", confirmation);
       setConfirm(confirmation);
+      navigation.setOptions({
+      headerTitle:true,
+    })
     } else {
       Alert.alert("Entered Wrong Number", "Please Enter 10 Digit Number", [
         {
@@ -76,7 +79,6 @@ const PhoneAuth = ({ navigation }) => {
       // currentUser = {...currentUser, ...res};
       storeData(res);
       setCode("");
-      setPhoneVerified(true);
       getLocalData();
     } catch (error) {
       console.log("Invalid code.");
@@ -84,33 +86,44 @@ const PhoneAuth = ({ navigation }) => {
   }
 
   const getLocalData = async () => {
-    setPhoneVerified(true)
     const userData = await getData("phoneAuth");
     console.log("userData", userData);
     if (userData != null) {
       navigation.navigate("UserDetails");
     }
-    setPhoneVerified(true);
   };
 
-  useEffect(() => {}, [phoneVerified, setPhoneVerified]);
-
   useEffect(() => {
+    console.log("Confirm kya hai", phoneVerified);
+    setPhoneVerified(false);
     getLocalData();
   }, []);
+  useEffect(()=>{
+    // navigation.setOptions({
+    //   headerTitle:params?.displayName,
+    // })
+  },[])
 
   return (
     <View style={styles.container}>
-      {!confirm ? (
+      {phoneVerified ? (
         <>
-          {/* <Button
-            mode="contained"
-            style={styles.signUpButton}
-            onPress={() => signInWithPhoneNumber("+91 914-482-8978")}
-          >
-            Phone Number Sign In
-          </Button> */}
+          <TextInput
+            value={code}
+            onChangeText={(text) => setCode(text)}
+            style={styles.otp}
+          />
 
+          <Button
+            mode="contained"
+            style={styles.codeBtn}
+            onPress={() => confirmCode()}
+          >
+            Confirm Code
+          </Button>
+        </>
+      ) : (
+        <>
           <View style={styles.inputContainer}>
             <Text style={styles.title}>
               Enter your phone number to get started
@@ -144,28 +157,15 @@ const PhoneAuth = ({ navigation }) => {
             </Button>
           </View>
         </>
-      ) : (
-        <>
-          <TextInput
-            value={code}
-            onChangeText={(text) => setCode(text)}
-            style={styles.otp}
-          />
-
-          <Button
-            mode="contained"
-            style={styles.codeBtn}
-            onPress={() => confirmCode()}
-          >
-            Confirm Code
-          </Button>
-        </>
       )}
     </View>
   );
 };
 
 export default PhoneAuth;
+
+
+
 
 const styles = StyleSheet.create({
   container: {

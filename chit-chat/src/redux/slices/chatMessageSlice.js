@@ -8,8 +8,9 @@ import { currentUser } from "../../components/Auth/currentUser";
 export const writeMessage = createAsyncThunk(
   "chatmessage/write",
   async (data) => {
+    console.log("message details arrived in asycn thunk", data)
     try {
-      await firestore.collection("Message").add(data);
+      await firestore().collection("Messages").add(data);
       return true;
     } catch (e) {
       console.log(
@@ -20,38 +21,35 @@ export const writeMessage = createAsyncThunk(
   }
 );
 
-
 const chatMessageSlice = createSlice({
-    name : 'chatMessage',
-    initialState:{
-        writeMessageStatus:Constants.IDLE,
-        chatMessages: [],
-        writeMessageError: 'Something went wrong!',
+  name: "chatMessage",
+  initialState: {
+    writeMessageStatus: Constants.IDLE,
+    chatMessages: [],
+    writeMessageError: "Something went wrong!",
+  },
+  reducers: {
+    setChatMessages: (state, action) => {
+      state.chatMessages = [...action.payload];
     },
-    reducers:{
-        setChatMessages:(state, action)=>{
-            action.payload != null ?
-            state.chatMessages = [...action.payload] : 
-            console.log("null in setChatMessages")
-        },
-    },
-    extraReducers(builder){
-        builder
-        .addCase(writeMessage.pending, state => {
-           state.writeMessageStatus = Constants.LOADING; 
-           console.log("send messages is in pending state")
-        })
-        .addCase(writeMessage.fulfilled, state => {
-            state.writeMessageStatus = Constants.FULFILLED;
-            console.log("send messages is saved")
-        })
-        .addCase(writeMessage.rejected, state => {
-            state.writeMessageStatus = Constants.REJECTED;
-            action?.error?.message && 
-            (state.writeMessageError = action?.error?.message);
-            console.log("send messages is rejected", action?.error?.message);
-        });
-    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(writeMessage.pending, (state) => {
+        state.writeMessageStatus = Constants.LOADING;
+        console.log("send messages is in pending state");
+      })
+      .addCase(writeMessage.fulfilled, (state) => {
+        state.writeMessageStatus = Constants.FULFILLED;
+        console.log("send messages is saved");
+      })
+      .addCase(writeMessage.rejected, (state) => {
+        state.writeMessageStatus = Constants.REJECTED;
+        action?.error?.message &&
+          (state.writeMessageError = action?.error?.message);
+        console.log("send messages is rejected", action?.error?.message);
+      });
+  },
 });
 
 export const { setChatMessages } = chatMessageSlice.actions;

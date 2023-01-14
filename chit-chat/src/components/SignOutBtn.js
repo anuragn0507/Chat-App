@@ -31,25 +31,13 @@ export const getData = async (key) => {
 };
 
 const SignOutBtn = () => {
-  const[logout, setLogout] = useState(false);
-
   const navigation = useNavigation();
 
   const signOut = () => {
-    console.log("inside the signout function")
+    console.log("inside the signout function");
     removeData();
-    // navigation.navigate("PhoneAuth")
-    refresh();
+    navigation.navigate("Login");
   };
-
-  const refresh=()=>{
-    console.log("inside the refresh function")
-    setLogout(true);
-  }
-
-  useEffect(()=>{
-
-  },[logout,setLogout ])
 
   return (
     <View>
