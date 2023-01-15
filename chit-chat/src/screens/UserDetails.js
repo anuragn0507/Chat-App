@@ -4,6 +4,7 @@ import { Button, IconButton, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { signUp } from "../redux/slices/userSlice";
+import { firebase } from "@react-native-firebase/auth";
 
 // Store the phone authentication data in async storage
 export const storeData = async (value) => {
@@ -39,44 +40,29 @@ const UserDetails = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const getLocalData = async () => {
-    try {
-      const userData = await getData("phoneAuth");
-      console.log("userData", userData);
-      setUserAuth(userData);
-    } catch {
-      (e) => console.log("error in getting data from asyncstorage ", e);
-    }
+    // let userData = firebase.auth().currentUser;
+    // console.log("current user inuser detailssssssssssssss", userData);
+    // setUserAuth(userData);
+    // console.log("UserAuth inuser detailssssssssssssss", userAuth);
   };
 
   useEffect(() => {
     getLocalData();
-    // gotoHomePage()
   }, []);
 
-  const setUserName = () => {
-    setUserAuth((prev) => {
-      console.log("prev", prev);
-      return { ...prev, user: { ...prev?.["user"], displayName: displayName } };
-    });
+  const setUserName = () => {    
+    console.log("displayName......................", displayName);
+    let {_user} = firebase.auth().currentUser;
+    _user["displayName"] = displayName;
+    console.log("userdata + name ......................", _user);
+    storeData(_user)
     setDisplayName("");
+    dispatch(signUp(_user));
+    gotoHomePage(_user);
   };
 
-  useEffect(() => {
-    userAuth != null && storeData(userAuth);
-    addName();
-  }, [setUserAuth, userAuth]);
-
-  const addName = () => {
-    storeData(userAuth);
-    gotoHomePage();
-  };
-
-  const gotoHomePage = async () => {
-    const userData = await getData("phoneAuth");
-    console.log("current user in userDetails", userData);
-    //using the async function signUp or userReducer
-    dispatch(signUp(userData));
-    userData?.user?.displayName != null && navigation.navigate("Bottom");
+  const gotoHomePage = (_user) => {  
+     _user != null && navigation.navigate("Bottom");
   };
 
   return (

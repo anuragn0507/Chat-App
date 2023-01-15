@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View , KeyboardAvoidingView} from "react-native";
 import React, { useEffect, useState } from "react";
 import { IconButton, TextInput } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -24,10 +24,8 @@ const ChatInputBox = ({props}) => {
 
   const sendMessage = () => {
     console.log("user in chat input box", user);
-    // console.log("Date.now me kya jaa rha hai..................................... ", Date.now());
     let messageTime;
     messageTime = Date.now();
-    // console.log("messageTime me kya jaa rha hai..................................... ", messageTime);
 
     dispatch(
       writeMessage({
@@ -43,7 +41,7 @@ const ChatInputBox = ({props}) => {
   };
 
   return (
-    <View>
+    <KeyboardAvoidingView behavior={'height'} enabled >
       <View style={styles.inputBoxContainer}>
         <IconButton style={styles.addBtn} icon="sticker-emoji" size={25} />
         <IconButton style={styles.emojiBtn} icon="plus" size={25} />
@@ -61,7 +59,7 @@ const ChatInputBox = ({props}) => {
         <IconButton style={styles.sendBtn} icon="send" size={25}
         onPress={sendMessage} />
       </View>
-    </View>
+      </KeyboardAvoidingView >
   );
 };
 
