@@ -21,15 +21,15 @@ export const getData = async (key) => {
 };
 
 export const signUp = createAsyncThunk("user/signup", async (data) => {
-  // console.log("data which is going to save in firestore", data);
+  console.log("data which is going to save in firestore before", data);
   const obj = {
-    displayName: data?.user?.displayName,
-    uid: data?.user?.uid,
+    displayName: data?.displayName,
+    uid: data?.uid,
     isgroup: false,
     members: null,
-    phoneNumber: data?.user?.phoneNumber,
+    phoneNumber: data?.phoneNumber,
   };
-  console.log("data which is going to save in firestore", obj);
+  console.log("data which is going to save in firestore object after", obj);
   try {
     await firestore()
       .collection("Users")
@@ -45,11 +45,11 @@ export const signUp = createAsyncThunk("user/signup", async (data) => {
 export const addInitialUser = createAsyncThunk(
   "user/currentUser", async(data)=>{
     const obj = {
-      displayName: data?.user?.displayName,
-      uid: data?.user?.uid,
+      displayName: data?.displayName,
+      uid: data?.uid,
       isgroup: false,
       members: null,
-      phoneNumber: data?.user?.phoneNumber,
+      phoneNumber: data?.phoneNumber,
     };
     try{
       return obj;
@@ -63,29 +63,7 @@ export const addInitialUser = createAsyncThunk(
 let initialUser = {};
 console.log("current user", currentUser);
 
-// const getLocalData = async () => {
-//   try {
-//     const userData = await getData("phoneAuth");
-//     console.log("userData in home", userData);
-//     initialUser = {...initialUser,
-//       displayName: userData.user.displayName,
-//       phoneNum: userData.user.phoneNumber,
-//       isGroup: false,
-//     };
-//     console.log("returning initialUser", initialUser);
-//     return initialUser;
-//   } catch {
-//     (e) => console.log("error in getting data from asyncstorage ", e);
-//   }
-// };
 
-// console.log("intialUser 1", initialUser);
-
-// const getIntialUser =() => {
-//   return getLocalData();
-// };
-
-// console.log("get Initial user returning " , getIntialUser());
 
 const userSlice = createSlice({
   name: "user",
@@ -112,22 +90,22 @@ const userSlice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.userStatus = Constants.FULFILLED;
         state.user = initialUser;
-        console.log("In fullfilled state");
+        console.log("In fullfilled state yyyyyyyyyyyyyyy");
       })
       .addCase(signUp.rejected, (state, action) => {
         state.userError = "Something went wrong";
-        console.log("kuch gadbad hui hai");
+        console.log("kuch gadbad hui hai xxxxxxxxxxxxxxxxxxxx");
       })
       .addCase(addInitialUser.pending, (state, action) => {
         console.log("current user id adding through slice");
       })
       .addCase(addInitialUser.fulfilled, (state, action) => {
         // state.user = action.payload
-        console.log("action k andr kya hai",action.payload);
+        console.log("action k andr kya haiyyyyyyyy",action.payload);
         state.user ={...state.user, ...action.payload}
       })
       .addCase(addInitialUser.rejected, (state, action) => {
-        console.log("rejected the user addition", action.error.message);
+        console.log("rejected the user additionxxxxxxxxx", action.error.message);
       });
   },
 });

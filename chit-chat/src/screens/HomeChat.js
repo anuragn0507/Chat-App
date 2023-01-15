@@ -92,19 +92,17 @@ const HomeChat = ({ navigation }) => {
   useEffect(() => {
     console.log("user in home chat", user);
     console.log("users in home chat", users);
-    // console.log('addInitialuser', dispatch(addInitialUser()))
   }, [user]);
 
   
 
   useEffect(() => {
-    console.log("user in homechat useeffect", user);
     if (user === null) {
       navigation.navigate("PhoneAuth");
     } else {
       let x = users.filter((data) => data.uid !== user.uid);
       dispatch(getAllUsers(x));
-      // console.log('addInitialuser', dispatch(addInitialUser()))
+    
     }
   }, [user]);
 

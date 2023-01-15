@@ -9,7 +9,7 @@ import {
   MD3Colors,
 } from "react-native-paper";
 import React, { useEffect, useState } from "react";
-import auth from "@react-native-firebase/auth";
+import auth, { firebase } from "@react-native-firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { currentUser } from "./currentUser";
 
@@ -47,17 +47,21 @@ const PhoneAuth = ({ navigation }) => {
 
   // Handle the button press
   async function signInWithPhoneNumber() {
-    setPhoneVerified(true);
     const num = "+91 " + phoneNum;
+    const num1 = "+91" + phoneNum;
     console.log("num is ", num);
 
     if (num.length === 14) {
       const confirmation = await auth().signInWithPhoneNumber(num);
       // console.log("confirmation ", confirmation);
-      setConfirm(confirmation);
-      navigation.setOptions({
-      headerTitle:true,
-    })
+      console.log("currentuser in firebase", firebase.auth().currentUser);
+      if (firebase.auth().currentUser.phoneNumber === num1) {
+        setConfirm(confirmation);
+        storeData(firebase.auth().currentUser);
+        getLocalData();
+      }else{
+        setPhoneVerified(true);
+      }
     } else {
       Alert.alert("Entered Wrong Number", "Please Enter 10 Digit Number", [
         {
@@ -81,7 +85,7 @@ const PhoneAuth = ({ navigation }) => {
       setCode("");
       getLocalData();
     } catch (error) {
-      console.log("Invalid code.");
+      console.log("Invalid code.", error);
     }
   }
 
@@ -98,11 +102,9 @@ const PhoneAuth = ({ navigation }) => {
     setPhoneVerified(false);
     getLocalData();
   }, []);
-  useEffect(()=>{
-    // navigation.setOptions({
-    //   headerTitle:params?.displayName,
-    // })
-  },[])
+  useEffect(() => {
+    console.log("currentuser in firebase", firebase.auth().currentUser);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -163,9 +165,6 @@ const PhoneAuth = ({ navigation }) => {
 };
 
 export default PhoneAuth;
-
-
-
 
 const styles = StyleSheet.create({
   container: {

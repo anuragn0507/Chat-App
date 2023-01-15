@@ -14,13 +14,9 @@ const Navbar = () => {
       </View>
 
       <View style={styles.appName}>
-        <Text style={{ fontSize: 20,fontWeight: "bold"  }}>Gappe</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Gappe</Text>
       </View>
       <View>
-        {/* <Searchbar
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        /> */}
         <IconButton icon="account-search" size={30} />
       </View>
       <View style={styles.dots}>

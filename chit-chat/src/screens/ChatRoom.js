@@ -5,6 +5,9 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import ChatInputBox from "../components/chat/ChatInputBox";
@@ -14,6 +17,9 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import firestore from "@react-native-firebase/firestore";
 import { setChatMessages } from "../redux/slices/chatMessageSlice";
+import { useHeaderHeight } from "@react-navigation/elements";
+import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
+import ChatImageHeader from "../components/ChatImageHeader";
 
 const ChatRoom = () => {
   const [message, setMessage] = useState("");
@@ -31,12 +37,11 @@ const ChatRoom = () => {
     (state) => state.chatMessageReducer
   );
 
-
-  useEffect(()=>{
+  useEffect(() => {
     navigation.setOptions({
-      headerTitle:params?.displayName,
-    })
-  },[])
+      headerTitle:(params) => <ChatImageHeader {...params} />,
+    });
+  }, []);
 
   useEffect(() => {
     const firestoremessagecollection = firestore()
@@ -57,7 +62,7 @@ const ChatRoom = () => {
         );
         result.sort((a, b) => a.createdAt - b.createdAt);
         console.log("all chat  message@@@@@@@@@@@", result);
-        
+
         dispatch(setChatMessages(result));
       }
     });
@@ -82,32 +87,34 @@ const ChatRoom = () => {
       </View>
     );
   };
-
+  const headerHeight = useHeaderHeight();
   return (
-    <View style={styles.container}>
-      {/* <Text>ChatRoom</Text> */}
-      <View style={styles.messageList}>
-        <FlatList
-          data={chatMessages}
-          inverted
-          contentContainerStyle={{ flexDirection: "column-reverse" }}
-          renderItem={(item) => <SingleChatMessage item={item.item} />}
-        />
-      </View>
+    <KeyboardAvoidingWrapper>
+      <View style={styles.container}>
+        {/* <Text>ChatRoom</Text> */}
+        <View style={styles.messageList}>
+          <FlatList
+            data={chatMessages}
+            inverted
+            contentContainerStyle={{ flexDirection: "column-reverse" }}
+            renderItem={(item) => <SingleChatMessage item={item.item} />}
+          />
+        </View>
 
-      <View style={[styles.inputBoxContainer]}>
-        <ChatInputBox props={params} />
+        <View style={[styles.inputBoxContainer]}>
+          <ChatInputBox props={params} />
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingWrapper>
   );
 };
 
 export default ChatRoom;
 
-
-
-
 const styles = StyleSheet.create({
+  keyboardView: {
+    flex: 1,
+  },
   container: {
     flexDirection: "column",
     justifyContent: "space-between",
@@ -117,10 +124,10 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height - 155,
   },
   inputBoxContainer: {
-    position: "absolute",
-    height: 80,
-    left: 0,
-    top: Dimensions.get("window").height - 155,
-    width: Dimensions.get("window").width,
+    // position: "absolute",
+    // height: 80,
+    // left: 0,
+    // top: Dimensions.get("window").height -155,
+    // width: Dimensions.get("window").width,
   },
 });
