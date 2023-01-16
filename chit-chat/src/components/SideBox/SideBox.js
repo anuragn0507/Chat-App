@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     locate:{
         position: 'absolute',
         top:70,
-        right:15,
+        right:20,
     },
     box:{
         backgroundColor:'#3c3744',
