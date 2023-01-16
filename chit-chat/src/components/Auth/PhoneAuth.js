@@ -44,13 +44,14 @@ const PhoneAuth = ({ navigation }) => {
   const [code, setCode] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [phoneVerified, setPhoneVerified] = useState(false);
+  const [btnDisable, setBtnDisable] = useState(true);
 
   // Handle the button press
   async function signInWithPhoneNumber() {
     const num = "+91 " + phoneNum;
     const num1 = "+91" + phoneNum;
     console.log("num is ", num);
-
+    setBtnDisable(true);
     if (num.length === 14) {
       const confirmation = await auth().signInWithPhoneNumber(num);
       // console.log("confirmation ", confirmation);
@@ -58,7 +59,7 @@ const PhoneAuth = ({ navigation }) => {
       if (firebase.auth().currentUser.phoneNumber === num1) {
         setConfirm(confirmation);
         storeData(firebase.auth().currentUser);
-        getLocalData();
+        getLocalData();        
       }else{
         setPhoneVerified(true);
       }
@@ -106,6 +107,14 @@ const PhoneAuth = ({ navigation }) => {
     console.log("currentuser in firebase", firebase.auth().currentUser);
   }, []);
 
+  useEffect(()=>{
+    if(phoneNum.length === 10){
+      setBtnDisable(false);
+    }else{
+      setBtnDisable(true);
+    }
+  },[phoneNum])
+
   return (
     <View style={styles.container}>
       {phoneVerified ? (
@@ -152,7 +161,7 @@ const PhoneAuth = ({ navigation }) => {
             <Button
               mode="contained"
               style={styles.signUpButton}
-              disabled={phoneNum.length != 10 ? true : false}
+              disabled={btnDisable}
               onPress={() => signInWithPhoneNumber()}
             >
               Next

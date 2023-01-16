@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, IconButton, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { signUp } from "../redux/slices/userSlice";
+import { addInitialUser, signUp } from "../redux/slices/userSlice";
 import { firebase } from "@react-native-firebase/auth";
 
 // Store the phone authentication data in async storage
@@ -39,25 +39,28 @@ const UserDetails = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  const getLocalData = async () => {
+  // const getLocalData = async () => {
     // let userData = firebase.auth().currentUser;
     // console.log("current user inuser detailssssssssssssss", userData);
     // setUserAuth(userData);
     // console.log("UserAuth inuser detailssssssssssssss", userAuth);
-  };
+  // };
 
-  useEffect(() => {
-    getLocalData();
-  }, []);
+  // useEffect(() => {
+  //   getLocalData();
+  // }, []);
 
   const setUserName = () => {    
     console.log("displayName......................", displayName);
     let {_user} = firebase.auth().currentUser;
+    console.log("userdata + name ......................before", {..._user});
+    
     _user["displayName"] = displayName;
-    console.log("userdata + name ......................", _user);
+    console.log("userdata + name ......................after adding name", {..._user});
     storeData(_user)
     setDisplayName("");
     dispatch(signUp(_user));
+    dispatch(addInitialUser(_user));
     gotoHomePage(_user);
   };
 

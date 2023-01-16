@@ -44,6 +44,8 @@ export const signUp = createAsyncThunk("user/signup", async (data) => {
 
 export const addInitialUser = createAsyncThunk(
   "user/currentUser", async(data)=>{
+
+    console.log("55555555data is coming in addintial user thunk before", data)
     const obj = {
       displayName: data?.displayName,
       uid: data?.uid,
@@ -85,11 +87,11 @@ const userSlice = createSlice({
     builder
       .addCase(signUp.pending, (state, action) => {
         state.userStatus = Constants.LOADING;
-        console.log("In pending state");
+        console.log("In pending state signup");
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.userStatus = Constants.FULFILLED;
-        state.user = initialUser;
+        // state.user = initialUser;
         console.log("In fullfilled state yyyyyyyyyyyyyyy");
       })
       .addCase(signUp.rejected, (state, action) => {
@@ -97,12 +99,13 @@ const userSlice = createSlice({
         console.log("kuch gadbad hui hai xxxxxxxxxxxxxxxxxxxx");
       })
       .addCase(addInitialUser.pending, (state, action) => {
-        console.log("current user id adding through slice");
+        console.log("current user id adding through slice in pending state");
       })
       .addCase(addInitialUser.fulfilled, (state, action) => {
         // state.user = action.payload
-        console.log("action k andr kya haiyyyyyyyy",action.payload);
-        state.user ={...state.user, ...action.payload}
+        state.user ={...state.user,...action.payload}
+        console.log("addInitial user action k andr kya haiyyyyyyyy",action.payload);
+        
       })
       .addCase(addInitialUser.rejected, (state, action) => {
         console.log("rejected the user additionxxxxxxxxx", action.error.message);

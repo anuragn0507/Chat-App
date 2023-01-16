@@ -1,5 +1,6 @@
 import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
+import Statusdata from "../components/Stories/statuspage";
 import ChatRoom from "../screens/ChatRoom";
 import HomeChat from "../screens/HomeChat";
 import Stories from "../screens/Stories";
@@ -18,7 +19,7 @@ const BottomNav = () => {
 
   const renderScene = BottomNavigation.SceneMap({
     chat: HomeChat,
-    stories: Stories,
+    stories: Statusdata,
   });
 
   return (
@@ -27,6 +28,7 @@ const BottomNav = () => {
       onIndexChange={setIndex}
       renderScene={renderScene}
     />
+    
   );
 };
 
