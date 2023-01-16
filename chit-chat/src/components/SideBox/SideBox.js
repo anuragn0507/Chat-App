@@ -47,7 +47,7 @@ const SideBox = () => {
           <View style={styles.locate}>
             <View style={styles.box}>
 
-              <TouchableOpacity onPress={() => Alert.alert("Modal has been closed.")}>
+              <TouchableOpacity onPress={ () => alert("Modal has been closed.")} >
                 <Text style={styles.text}>New group</Text>
               </TouchableOpacity>
                 
