@@ -50,14 +50,8 @@ const HomeChat = ({ navigation }) => {
   const getLocalData = async () => {
     try {
       const userData = await getData("phoneAuth");
-      // console.log("userData in home 1", userData);
-      dispatch(addInitialUser(userData));
-      // console.log("current user in Homechat", currentUser)
-      const userAuthDetails = {
-        displayName: userData.user.displayName,
-        phoneNum: userData.user.phoneNumber,
-        isGroup: false,
-      };
+      
+      
     } catch {
       (e) => console.log("error in getting data from asyncstorage ", e);
     }
@@ -90,9 +84,9 @@ const HomeChat = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log("user in home chat", user);
+    console.log("user in home chatUUUUUUUUUU", user);
     console.log("users in home chat", users);
-  }, [user]);
+  }, []);
 
   
 
