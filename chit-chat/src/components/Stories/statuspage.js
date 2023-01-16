@@ -11,7 +11,7 @@ import { resetUsersStories } from "../../redux/slices/userStorySlice";
 
 var tmpcolor = ""
 const col= () => {
-    const backcolo = [ "#0047AB", "#f2ccff", "#b3b3ff"]
+    const backcolo = [ "#9c90b5", "#ddd9e6", "807498"]
     var cols = backcolo[Math.floor(Math.random()*backcolo.length)]
     tmpcolor = cols
     return cols 
@@ -101,7 +101,7 @@ function Statusdata(){
       </Modal>
 
 
-        <View style={Styles.firstbar}>
+        {/* <View style={Styles.firstbar}>
 
            <View style={Styles.namebox}>
              <View style={{borderRadius:50, padding:5,backgroundColor: "rgba(246, 163, 206, 0.8)"}}>
@@ -118,7 +118,7 @@ function Statusdata(){
                <View><Entypo name="dots-three-vertical" size={25}/></View>
            </View>
 
-        </View>
+        </View> */}
 
         {
           mystatus ?  <Pressable onPress={()=>{
@@ -130,7 +130,7 @@ function Statusdata(){
             }} >
             <View style={Styles.outermystatusdiv}>
                 <View style={Styles.mystatusdiv}>
-                  <Text style={{fontSize : 24, marginLeft:20, fontWeight:"500"}}>My story</Text>
+                  <Text style={{fontSize : 20, marginLeft:20, fontWeight:"500"}}>My story</Text>
                 </View>
             </View>
           </Pressable> :<Pressable onPress={()=>{navigation.navigate("ClickingPhotoFromGallery")}}>
@@ -204,13 +204,13 @@ const Styles = StyleSheet.create({
       alignSelf:"center",
       width:"100%",
       borderRadius : 25,
-      backgroundColor:"#c3c388"
+      backgroundColor:"#cdc6da"
     },
     outermystatusdiv:{
       borderWidth:2,
       padding:2,
-      borderColor:"#aaaa55", 
-      width:"85%",
+      borderColor:"#aca2c1", 
+      width:"95%",
       alignSelf:"center",
       borderRadius:28,
       marginTop:10

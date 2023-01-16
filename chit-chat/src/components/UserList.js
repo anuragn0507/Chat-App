@@ -21,6 +21,6 @@ export default UserList
 const styles = StyleSheet.create({
   container:{
     width: "100%",
-    height: Dimensions.get("window").height - 155,
+    height: Dimensions.get("window").height - 165,
   }
 })

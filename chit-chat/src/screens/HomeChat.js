@@ -102,8 +102,7 @@ const HomeChat = ({ navigation }) => {
 
   return (
     <View>
-      <UserList users={users} />
-      <SignOutBtn />
+      <UserList users={users} />      
     </View>
   );
 };
