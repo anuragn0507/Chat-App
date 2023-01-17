@@ -13,6 +13,7 @@ import ClickingPhotofromgallery from "../components/Stories/Clickingphotofromgal
 import ClickingPhoto from "../components/Stories/clickingphotofromcamera";
 import SettingScreen from "../components/Settings/SettingScreen";
 import SideBox from "../components/SideBox/SideBox";
+import CreateGroup from "../screens/CreateGroup";
 
 
 
@@ -53,6 +54,10 @@ const StackNavigator = () => {
         <Stack.Screen
           name="SideModal"
           component={SideBox}
+        />
+        <Stack.Screen
+          name="CreateGroup"
+          component={CreateGroup}
         />
         
 

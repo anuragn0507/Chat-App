@@ -27,6 +27,11 @@ const Navbar = () => {
     navigation.navigate("SettingScreen");
   };
 
+  const createNewGroup=()=>{
+    console.log("Create group button is clicked");
+    navigation.navigate("CreateGroup")
+  }
+
   const signOut=()=>{
     setModalVisible(false)
     navigation.navigate("SignOut")
@@ -51,7 +56,7 @@ const Navbar = () => {
               <View style={styles.locate}>
                 <View style={styles.box}>
                   <TouchableOpacity
-                    onPress={() => alert("Modal has been closed.")}
+                    onPress={() => createNewGroup()}
                   >
                     <Text style={styles.text}>New group</Text>
                   </TouchableOpacity>
