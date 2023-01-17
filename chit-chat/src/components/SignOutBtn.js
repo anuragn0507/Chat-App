@@ -33,6 +33,10 @@ export const getData = async (key) => {
 const SignOutBtn = () => {
   const navigation = useNavigation();
 
+  useEffect(()=>{
+    signOut();
+  },[])
+
   const signOut = () => {
     console.log("inside the signout function");
     removeData();

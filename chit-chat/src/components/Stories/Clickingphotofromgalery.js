@@ -4,7 +4,9 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { resetMyStory } from '../../redux/slices/userStorySlice';
 
 export default function ClickingPhotofromgallery() {
   const [images, setimages] = useState("");
@@ -14,12 +16,15 @@ export default function ClickingPhotofromgallery() {
         mediaType: 'photo',
       },
       includeBase64: true,
-      
+      maxHeight:600,
+      maxWidth:800,
     }
 
     // getting the current user details from redux store 
     
-    const { user } = useSelector((state)=> state.userReducer);
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+    const { user } = useSelector((state) => state.userReducer);
 
 
     launchImageLibrary(options, response =>{
@@ -34,6 +39,10 @@ export default function ClickingPhotofromgallery() {
 
       }
       else{
+        // sending back to the story page
+
+        navigation.navigate("Bottom");
+
         const source = response.assets[0].base64
         firestore()
           .collection('users')
@@ -44,7 +53,14 @@ export default function ClickingPhotofromgallery() {
             uid: user?.uid,
           })
           .then(() => {
-            console.log('status added!');
+            console.log('status added!------from gallery');
+            dispatch(resetMyStory(
+              {
+                status: `data:image/jpeg;base64,${source}`,
+                displayName:user?.displayName,
+                uid: user?.uid,
+            }
+            ))
           });
       }
     })

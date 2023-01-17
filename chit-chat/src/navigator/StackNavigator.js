@@ -11,6 +11,11 @@ import SignOutBtn from "../components/SignOutBtn";
 import ChatRoom from "../screens/ChatRoom";
 import ClickingPhotofromgallery from "../components/Stories/Clickingphotofromgalery";
 import ClickingPhoto from "../components/Stories/clickingphotofromcamera";
+import SettingScreen from "../components/Settings/SettingScreen";
+import SideBox from "../components/SideBox/SideBox";
+import CreateGroup from "../screens/CreateGroup";
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -33,10 +38,7 @@ const StackNavigator = () => {
           component={SignOutBtn}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="ChatRoom"
-          component={ChatRoom}
-        />
+        <Stack.Screen name="ChatRoom" component={ChatRoom} />
         <Stack.Screen
           name="ClickingPhotoFromGallery"
           component={ClickingPhotofromgallery}
@@ -45,13 +47,26 @@ const StackNavigator = () => {
           name="ClickingStoryFromCamera"
           component={ClickingPhoto}
         />
+        <Stack.Screen
+          name="SettingScreen"
+          component={SettingScreen}
+        />
+        <Stack.Screen
+          name="SideModal"
+          component={SideBox}
+        />
+        <Stack.Screen
+          name="CreateGroup"
+          component={CreateGroup}
+        />
+        
 
         <Stack.Screen
           name="Bottom"
           component={BottomNav}
           options={({ navigation, route }) => ({
             headerTitle: (props) => <Navbar />,
-            headerBackVisible:false,
+            headerBackVisible: false,
           })}
           // options={{headerBackImageSource:""}}
         />
