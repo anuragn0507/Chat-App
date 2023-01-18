@@ -39,8 +39,9 @@ export const getData = async (key) => {
 
 const HomeChat = ({ navigation }) => {
   console.log("homechat component is called from here");
+  
 
-  const { user } = useSelector((state) => state.userReducer);
+  const { user, userStatus, userError, SignOutStatus } = useSelector((state) => state.userReducer);
   const { users, usersStatus, usersError } = useSelector(
     (state) => state.usersReducer
   );
@@ -102,6 +103,7 @@ const HomeChat = ({ navigation }) => {
 
   return (
     <View>
+      
       <UserList users={users} />      
     </View>
   );
