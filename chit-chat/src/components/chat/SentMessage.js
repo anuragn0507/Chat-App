@@ -8,6 +8,7 @@ const SentMessage = ({ item }) => {
   return (
     <View style={styles.container}>
       <View style={styles.messageContainer}>
+        
         <Text style={styles.message}>{item.text}</Text>
         <View style={styles.messageTime}>
           {/* Date and time we will implement here */}

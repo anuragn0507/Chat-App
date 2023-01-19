@@ -104,7 +104,7 @@ const Navbar = () => {
       </View>
 
       <View style={styles.appName}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Gappe</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Chit Chat</Text>
       </View>
       <View style={styles.pencil}>
         <IconButton
