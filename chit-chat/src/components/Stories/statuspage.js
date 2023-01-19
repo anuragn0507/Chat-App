@@ -18,7 +18,7 @@ import { resetUsersStories } from "../../redux/slices/userStorySlice";
 
 var tmpcolor = "";
 const col = () => {
-  const backcolo = ["#9c90b5", "#ddd9e6", "807498"];
+  const backcolo = ["#9c90b5", "#ddd9e6", "#807498"];
   var cols = backcolo[Math.floor(Math.random() * backcolo.length)];
   tmpcolor = cols;
   return cols;

@@ -1,38 +1,55 @@
-import { View, Text,  TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { Avatar, Card, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import ChatRoom from "../../screens/ChatRoom";
+import { useDispatch, useSelector } from "react-redux";
+import { addSelectedUser, removeSelectedUser } from "../../redux/slices/groupSlice";
 
 const GroupChatCard = ({ props }) => {
   const [clicked, setClicked] = useState(false);
+  const [radioClicked, setRadioClicked] = useState(false);
+  const [radioIcon, setRadioIcon] = useState("radiobox-blank");
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  // console.log("chat card k props me kya aya hai", props);
+  const { userSelected } = useSelector((state) => state.groupReducer);
 
-  const toggleClicked = () => {
-    // console.log("toggle clicked is called ", props);
-    setClicked((value) => !value);
+    
+
+  const selectUser = () => {
+    setRadioClicked(!radioClicked);
+    if (radioClicked) {
+        setRadioIcon("radiobox-blank")
+    } else {
+        setRadioIcon("radiobox-marked")
+    }
   };
 
   useEffect(() => {
-    // console.log("useeffect is called", clicked);
-    if (clicked === true) {
-      navigation.navigate("ChatRoom", props);
+    console.log("userselected in groupChat card", userSelected)
+    if (radioClicked) {
+        dispatch(addSelectedUser({...props}));
+    } else {
+        dispatch(removeSelectedUser({...props}));
     }
-  }, [clicked]);
+  }, [radioClicked]);
 
   return (
     <View>
-      <TouchableOpacity onPress={toggleClicked}>
-        <Card.Title          
+      <TouchableOpacity onLongPress={() => selectUser()}>
+        <Card.Title
           title={props.displayName}
           subtitle={props.phoneNumber}
           left={(props) => <Avatar.Icon {...props} icon="account" />}
           right={(props) => (
-            <IconButton {...props} icon="check-all" onPress={() => {}} />
+            <IconButton
+              {...props}
+              icon={radioIcon}
+              onPress={() => selectUser()}
+            />
           )}
         />
       </TouchableOpacity>
