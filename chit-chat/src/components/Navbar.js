@@ -29,7 +29,8 @@ const Navbar = () => {
 
   const createNewGroup=()=>{
     console.log("Create group button is clicked");
-    navigation.navigate("CreateGroup")
+    setModalVisible(false)
+    navigation.navigate("Create Group")
   }
 
   const signOut=()=>{

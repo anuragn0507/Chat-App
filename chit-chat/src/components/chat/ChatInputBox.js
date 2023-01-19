@@ -1,47 +1,69 @@
-import { FlatList, StyleSheet, Text, View , KeyboardAvoidingView} from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { IconButton, TextInput } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { writeMessage } from "../../redux/slices/chatMessageSlice";
 
-const ChatInputBox = ({props}) => {
+
+const ChatInputBox = ({ props }) => {
   const [message, setMessage] = useState("");
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  console.log("params in send message button", props)
+  // console.log("params in send message button", props)
 
   const { user } = useSelector((state) => state.userReducer);
-  const {chatMessages, writeMessageStatus, writeMessageError} = useSelector(
-    (state) => state.chatMessageReducer,
+  const { chatMessages, writeMessageStatus, writeMessageError } = useSelector(
+    (state) => state.chatMessageReducer
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("user in chat input box", user);
-  },[])
+    console.log("ppppppppppprops in send message button", props);
+  }, []);
 
   const sendMessage = () => {
     console.log("user in chat input box", user);
     let messageTime;
     messageTime = Date.now();
 
-    dispatch(
-      writeMessage({
-        text: message,
-        receivedId: props?.uid,
-        sentId: user?.uid,
-        createdAt: messageTime,
-        groupId: null,
-        likes: [],
-      })
-    );
+    if (props.isgroup && message !== "") {
+      dispatch(
+        writeMessage({
+          text: message,
+          receivedId: props.uid,
+          sentId: user.uid,
+          createdAt: Date.now(),
+          groupId: props.uid,
+          likes: [],
+        })
+      );
+    } else {
+      dispatch(
+        writeMessage({
+          text: message,
+          receivedId: props?.uid,
+          sentId: user?.uid,
+          createdAt: messageTime,
+          groupId: null,
+          likes: [],
+        })
+      );
+    }
+
     setMessage("");
   };
 
   return (
-    <KeyboardAvoidingView behavior={'height'} enabled >
+    <KeyboardAvoidingView behavior={"height"} enabled>
       <View style={styles.inputBoxContainer}>
         <IconButton style={styles.addBtn} icon="sticker-emoji" size={25} />
         <IconButton style={styles.emojiBtn} icon="plus" size={25} />
@@ -56,10 +78,14 @@ const ChatInputBox = ({props}) => {
         />
         <IconButton style={styles.cameraBtn} icon="camera" size={25} />
         <IconButton style={styles.micBtn} icon="microphone" size={25} />
-        <IconButton style={styles.sendBtn} icon="send" size={25}
-        onPress={sendMessage} />
+        <IconButton
+          style={styles.sendBtn}
+          icon="send"
+          size={25}
+          onPress={sendMessage}
+        />
       </View>
-      </KeyboardAvoidingView >
+    </KeyboardAvoidingView>
   );
 };
 

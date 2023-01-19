@@ -41,7 +41,7 @@ const chatMessageSlice = createSlice({
       })
       .addCase(writeMessage.fulfilled, (state) => {
         state.writeMessageStatus = Constants.FULFILLED;
-        console.log("send messages is saved");
+        console.log("send messages is saved Sucessfull");
       })
       .addCase(writeMessage.rejected, (state) => {
         state.writeMessageStatus = Constants.REJECTED;

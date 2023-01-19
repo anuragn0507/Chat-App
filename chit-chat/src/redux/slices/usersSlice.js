@@ -4,8 +4,9 @@ import  compareObj from '../../helpers/compareObj'
 
 
 export const getAllUsers = createAsyncThunk('users/getallusers', async data =>{
-    console.log("data coming to getAllUsers sent from home", data);
-    return data.sort((a,b) => a.displayName.localeCompare(b.name));
+    console.log("data coming to getAllUsers sent from homecccccccc", data);
+    return data.sort((a,b) => a.displayName.localeCompare(b.displayName));
+
 })
 
 const usersSlice = createSlice({
@@ -37,12 +38,13 @@ const usersSlice = createSlice({
                 state.users=[...action.payload];
             }else{
                 state.users=[...action.payload];
-                console.log("Tera getlluser ka fullfilled nhi chal rha hai compareobj k karan")
+                console.log("Tera getlluser ka fullfilled nhi chal rha hai compareobj k karan", action.payload)
             }
         })
         .addCase(getAllUsers.rejected, (state, action)=>{
             state.usersStatus = Constants.REJECTED;
             action?.error?.message && (state.usersError = action?.error?.message);
+            console.log("Tera getlluser asyncthunk reject ho rha hai xxxxxxxxxx", action?.error?.message)
         });
     },
 });

@@ -11,14 +11,18 @@ import ChatCard from "./chat/ChatCard";
 import GroupChatCard from "./chat/GroupChatCard";
 import { IconButton } from "react-native-paper";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
-const GroupUserList = ({ users }) => {
+const GroupUserList = () => {
   // console.log("users data in userList", users);
 
+  const navigation = useNavigation();
+
   const { userSelected } = useSelector((state) => state.groupReducer);
+  const { users } = useSelector((state) => state.usersReducer);
 
   useEffect(() => {
-    // console.log("length of selected userArray", userSelected.length);
+    console.log("Users in groupuserlist------------------------------------", users);
   }, []);
 
   const showSelectedUsers = ({ item }) => {
@@ -54,6 +58,7 @@ const GroupUserList = ({ users }) => {
               mode="contained"
               icon="arrow-right"
               style={{ alignSelf: "center" }}
+              onPress={()=> navigation.navigate("Create Group Name")}
             />
           </View>
         </View>
@@ -73,6 +78,6 @@ export default GroupUserList;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: Dimensions.get("window").height - 100,
+    height: Dimensions.get("window").height - 155,
   },
 });
