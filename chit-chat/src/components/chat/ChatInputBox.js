@@ -32,6 +32,8 @@ const ChatInputBox = ({ props }) => {
 
   const sendMessage = () => {
     console.log("user in chat input box", user);
+    console.log("props in chat input box", props);
+    console.log("recieveddddddd in chat input box", props?.uid);
     let messageTime;
     messageTime = Date.now();
 
@@ -39,10 +41,10 @@ const ChatInputBox = ({ props }) => {
       dispatch(
         writeMessage({
           text: message,
-          receivedId: props.uid,
-          sentId: user.uid,
-          createdAt: Date.now(),
-          groupId: props.uid,
+          receivedId: props?.uid,
+          sentId: user?.uid,
+          createdAt: messageTime,
+          groupId: props?.uid,
           likes: [],
         })
       );

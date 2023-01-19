@@ -4,12 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Avatar, Card, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import ChatRoom from "../../screens/ChatRoom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteGroup } from "../../redux/slices/groupSlice";
 
 const ChatCard = ({ props }) => {
   const [clicked, setClicked] = useState(false);
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { users } = useSelector((state) => state.usersReducer);
 
   console.log("chat card k props me kya aya hai", props);
@@ -26,6 +28,10 @@ const ChatCard = ({ props }) => {
   const gotoChatRoom = () => {
     navigation.navigate("Chat Room", props);
   };
+
+  const deleteGroupfromDb =()=>{
+    dispatch(deleteGroup(props))
+  }
 
   useEffect(() => {
     // console.log("useeffect is called", clicked);
@@ -58,7 +64,7 @@ const ChatCard = ({ props }) => {
                 mode="contained"
                 {...props}
                 icon="delete"
-                onPress={() => {}}
+                onPress={() => deleteGroupfromDb()}
               />
             )}
           />
