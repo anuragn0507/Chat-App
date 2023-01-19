@@ -41,8 +41,9 @@ const HomeChat = ({ navigation }) => {
   console.log("homechat component is called from here");
   
 
-  const { user, userStatus, userError, SignOutStatus } = useSelector((state) => state.userReducer);
-  const { users, usersStatus, usersError } = useSelector(
+  const { user } = useSelector((state) => state.userReducer);
+  const { createGroupState } = useSelector((state) => state.groupReducer);
+  const { users } = useSelector(
     (state) => state.usersReducer
   );
 
@@ -50,8 +51,7 @@ const HomeChat = ({ navigation }) => {
 
   const getLocalData = async () => {
     try {
-      const userData = await getData("phoneAuth");
-      
+      const userData = await getData("phoneAuth");     
       
     } catch {
       (e) => console.log("error in getting data from asyncstorage ", e);
@@ -87,7 +87,7 @@ const HomeChat = ({ navigation }) => {
   useEffect(() => {
     console.log("user in home chatUUUUUUUUUU", user);
     console.log("users in home chat", users);
-  }, []);
+  }, [user,users ]);
 
   
 
@@ -99,7 +99,7 @@ const HomeChat = ({ navigation }) => {
       dispatch(getAllUsers(x));
     
     }
-  }, [user]);
+  }, [user, createGroupState]);
 
   return (
     <View>

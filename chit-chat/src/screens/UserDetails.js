@@ -39,16 +39,7 @@ const UserDetails = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  // const getLocalData = async () => {
-    // let userData = firebase.auth().currentUser;
-    // console.log("current user inuser detailssssssssssssss", userData);
-    // setUserAuth(userData);
-    // console.log("UserAuth inuser detailssssssssssssss", userAuth);
-  // };
-
-  // useEffect(() => {
-  //   getLocalData();
-  // }, []);
+  
 
   const setUserName = () => {    
     console.log("displayName......................", displayName);

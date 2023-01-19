@@ -14,6 +14,8 @@ import ClickingPhoto from "../components/Stories/clickingphotofromcamera";
 import SettingScreen from "../components/Settings/SettingScreen";
 import SideBox from "../components/SideBox/SideBox";
 import CreateGroup from "../screens/CreateGroup";
+import CreateGroupName from "../screens/CreateGroupName";
+import GroupChatRooms from "../screens/GroupChatRooms";
 
 
 
@@ -56,8 +58,16 @@ const StackNavigator = () => {
           component={SideBox}
         />
         <Stack.Screen
-          name="CreateGroup"
+          name="Create Group"
           component={CreateGroup}
+        />
+        <Stack.Screen
+          name="Create Group Name"
+          component={CreateGroupName}
+        />
+        <Stack.Screen
+          name="Chat Room"
+          component={GroupChatRooms}
         />
         
 
