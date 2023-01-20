@@ -155,7 +155,7 @@ function Statusdata() {
                 <Text
                   style={{ fontSize: 29, fontWeight: "700", color: "#5c5c3d" }}
                 >
-                  pM
+                  {user.displayName.substring(0, 2).toUpperCase()}
                 </Text>
               </View>
             </View>
@@ -261,6 +261,12 @@ const Styles = StyleSheet.create({
     alignItems: "flex-end",
     // borderWidth:5,
   },
+  secondbar:{
+    flexDirection:"row",
+    width:"95%",
+    alignSelf:"center",
+    marginVertical:18
+},
 
   namebox: {
     flex: 2,

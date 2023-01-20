@@ -48,7 +48,7 @@ export default function ClickingPhoto() {
       firestore()
         .collection("users")
         .doc(user?.uid)
-        .update({
+        .set({
             status: `data:image/jpeg;base64,${source}`,
             displayName:user?.displayName,
             uid: user?.uid,
