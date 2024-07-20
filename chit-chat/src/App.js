@@ -28,6 +28,7 @@ const requestCameraPermission = async () => {
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log("You can use the Camera");
+        // added some comments
       } else {
         console.log("Camera Permission denied");
       }
